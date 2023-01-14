@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>map</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="main-div">
+
+ <p id="demo"></p>
+ 
+
+
+
+<script>
+    window.onload =getfetchMovies();
+    var x = document.getElementById("demo");
+  async function getfetchMovies() {
+  const response = await fetch('https://api.ipgeolocation.io/ipgeo?apiKey=214571bfc47141169e7af409b5202693');
+  let data=await response.json()
+  return data
+}
+let lat
+let log
+const apidata=getfetchMovies()
+apidata.then((items)=>{
+   lat=items.latitude
+  log=items.longitude
+  x.innerHTML="Latitude: " + lat +"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Longitude: " + log;
+  console.log(items.latitude,items.longitude)
+  
+})
+
+
+  async function getOpenweather() {
+  const response = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=cbc0080ba3f49a45fb4c2db492928bd1');
+  let data=await response.json()
+  return data
+}
+  const weather=getOpenweather()
+  weather.then((event)=>{
+  const val=event.name
+  console.log(val)
+  document.getElementById('hi').innerHTML=val
+
+  const l=event.coord.lat
+  console.log(l)
+  document.getElementById('lat').innerHTML=l
+
+  const log=event.coord.lon
+  console.log(log)
+  document.getElementById('log').innerHTML=log
+
+  const tzone=event.timezone
+  console.log(tzone)
+  document.getElementById('tzone').innerHTML=tzone
+
+  const wind=event.wind.speed
+  console.log(wind)
+  document.getElementById('wind').innerHTML=wind
+
+  
+
+  const p=event.main.pressure
+  console.log(p)
+  document.getElementById('p').innerHTML=p
+
+  const h=event.main.humidity
+  console.log(h)
+  document.getElementById('h').innerHTML=h
+
+  const wd=event.wind.gust
+  console.log(wd)
+  document.getElementById('wd').innerHTML=wd
+
+  const uv=event.sys.sunrise
+  console.log(uv)
+  document.getElementById('uv').innerHTML=uv
+
+  const fl=event.main.feels_like
+  console.log(fl)
+  document.getElementById('f').innerHTML=fl
+
+})
+</script> 
+
+
+  
+
+<iframe    
+src="https://maps.google.com/maps?q='+ lat +','+ log +' &output=embed"
+height="200"
+width="460"
+frameborder="0"
+style="border:0">
+
+</iframe>
+<div class="main-div">
+<div  iv id="div-2">
+  <h3 id="p2">Weather Data</h3>
+<span>Location:</span><span id="hi"></span>
+<br><span>Lat:</span><span id="lat"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Long:</span><span id="log"></span>
+<br><span>Time zone:</span><span id="tzone"></span>
+<br><span>windspead:</span><span id="wind"></span>
+<br><span>pressure:</span><span id="p"></span>
+<br><span>Humidity:</span><span id="h"></span>
+<br><span>winddirection:</span><span id="wd"></span>
+<br><span>UV index:</span><span id="uv"></span>
+<br><span>Feels like:</span><span id="f"></span>
+
+
+
+
+  
+</div>
+</div>
+
+</body>
+</html>
